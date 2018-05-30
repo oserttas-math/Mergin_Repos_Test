@@ -36,5 +36,5 @@ joind = joined.reset_index()
 joind['Gender'] = pd.Series(['Male', 'Female', 'Male', 'Male', 'Female'])
 print(joind)
 
-
+# Result : 
 print(joind.groupby('Gender').apply(agg))
