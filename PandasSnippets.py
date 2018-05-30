@@ -16,6 +16,7 @@ df_height = pd.DataFrame({'Name': ['Aomm', 'Jenny', 'Iverson', 'Ali', 'Ayse'],
 joined = df_age.set_index('Name').join(df_height.set_index('Name'))
 print(joined)
 
+########################################################
 
 # CUSTOM AGG FUNCTION #
 
@@ -36,5 +37,7 @@ joind = joined.reset_index()
 joind['Gender'] = pd.Series(['Male', 'Female', 'Male', 'Male', 'Female'])
 print(joind)
 
-# Result : 
+# Result :
 print(joind.groupby('Gender').apply(agg))
+
+#######################################################
