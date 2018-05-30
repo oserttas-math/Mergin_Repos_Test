@@ -8,7 +8,7 @@ df_height = pd.DataFrame({'name': ['Tom', 'Mike', 'Iverson', 'Ali', 'Mehmet'],
                           })
 
 
-# Join this two data frame on names:
+# Join those two data frame on names:
 
 joined = df_age.set_index('Name').join(df_height.set_index('name'))
 print(joined)
