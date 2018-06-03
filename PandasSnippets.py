@@ -47,6 +47,7 @@ print(joind.groupby('Gender').apply(agg))
 # method
 
 # Groupby Example
+
 import pandas as pd
 sales = pd.DataFrame(
                      {
@@ -62,34 +63,50 @@ sales = pd.DataFrame(
 sales.loc[sales['weekday'] == 'Sun'].count()
 
 # Alternative way: sales on each day
+
 sales.groupby('weekday').count()
 
+
 # Total bread sales each day
+
 sales.groupby('weekday')['bread'].sum()
 
 sales.groupby('weekday')[['bread', 'butter']].sum()
 
+
 # Multi-Level splitting
+
 sales.groupby(['city', 'weekday']).mean()
 
 sales.groupby(['city', 'weekday']).std()
 
+
 # Now create a series with the same indexes with sales dataframe then observe
+
 Customers = pd.Series(['Ali', 'Raji', 'Liz', 'Robert'])
 sales.groupby(Customers)['bread'].sum()
-# Also, two dataframe with the same index values satisfy above nesting process 
+# Also, two dataframe with the same index values satisfy above nesting process
 # Result: New series with the customer names on the index
 
-# Now aggregations
-sales.groupby('city')[['bread', 'butter']].max()
-# Multiple aggregations
-sales.groupby('city')[['bread', 'butter']].agg(['max', 'sum'])
 
+# Now aggregations
+
+sales.groupby('city')[['bread', 'butter']].max()
+
+
+# Multiple aggregations
+
+aggregated = sales.groupby('city')[['bread', 'butter']].agg(['max', 'sum'])
+
+# Retrun max values of selected column/columns
+
+print(aggregated.loc[:, ('bread', 'max')])
+print(aggregated.loc[:, (['bread', 'butter'], 'max')])
 def drange(series):
     return series.max() - series.min()
 
-
 # Aggregation with custom functions
+
 sales.groupby('weekday')[['bread', 'butter']].agg(drange)
 
 # Aggregation with dictionary
@@ -97,6 +114,8 @@ sales.groupby('weekday')[['bread', 'butter']].agg({'bread': 'sum', 'butter': dra
 
 sales.groupby(Customers)[['bread', 'butter']].agg({'bread': 'sum', 'butter': drange})
 
+
+# Transform method
 
 def zscore(series):
     return (series - series.mean()) / series.mean()
