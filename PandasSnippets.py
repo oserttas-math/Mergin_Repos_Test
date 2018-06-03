@@ -142,3 +142,5 @@ ds['time'] = pd.to_datetime(ds['time'])
 print(ds.set_index('time',inplace=True))
 print(ds.index.strftime('%a'))
 # >>> output : ['Mon' 'Mon' 'Tue' 'Wed' 'Wed' 'Thu' 'Thu' 'Sat' 'Mon' 'Mon']
+
+#### Terminal Issue ###
