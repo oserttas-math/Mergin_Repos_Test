@@ -77,7 +77,7 @@ sales.groupby(['city', 'weekday']).std()
 # Now create a series with the same indexes with sales dataframe then observe
 Customers = pd.Series(['Ali', 'Raji', 'Liz', 'Robert'])
 sales.groupby(Customers)['bread'].sum()
-
+# Also, two dataframe with the same index values satisfy above nesting process 
 # Result: New series with the customer names on the index
 
 # Now aggregations
@@ -96,3 +96,11 @@ sales.groupby('weekday')[['bread', 'butter']].agg(drange)
 sales.groupby('weekday')[['bread', 'butter']].agg({'bread': 'sum', 'butter': drange})
 
 sales.groupby(Customers)[['bread', 'butter']].agg({'bread': 'sum', 'butter': drange})
+
+
+def zscore(series):
+    return (series - series.mean()) / series.mean()
+
+
+# Transform the Bread data to z-score values
+zscore(sales['bread']).head()
