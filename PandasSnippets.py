@@ -123,3 +123,22 @@ def zscore(series):
 
 # Transform the Bread data to z-score values
 zscore(sales['bread']).head()
+
+
+# Transforming datetime to days of the week
+
+ds = pd.DataFrame(
+             {'time': ['2015-02-02 08:30:00', '2015-02-02 21:00:00',
+              '2015-02-03 14:00:00', '2015-02-04 15:30:00',
+              '2015-02-04 22:00:00', '2015-02-05 02:00:00',
+              '2015-02-05 22:00:00', '2015-02-07 23:00:00',
+              '2015-02-09 09:00:00', '2015-02-09 13:00:00'],
+              'sales': [4, 6, 20, 9, 2, 3, 20, 30, 2, 8]
+
+             }
+)
+
+ds['time'] = pd.to_datetime(ds['time'])
+print(ds.set_index('time',inplace=True))
+print(ds.index.strftime('%a'))
+# >>> output : ['Mon' 'Mon' 'Tue' 'Wed' 'Wed' 'Thu' 'Thu' 'Sat' 'Mon' 'Mon']
