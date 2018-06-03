@@ -115,16 +115,6 @@ sales.groupby('weekday')[['bread', 'butter']].agg({'bread': 'sum', 'butter': dra
 sales.groupby(Customers)[['bread', 'butter']].agg({'bread': 'sum', 'butter': drange})
 
 
-# Transform method
-
-def zscore(series):
-    return (series - series.mean()) / series.mean()
-
-
-# Transform the Bread data to z-score values
-zscore(sales['bread']).head()
-
-
 # Transforming datetime to days of the week
 
 ds = pd.DataFrame(
@@ -143,4 +133,11 @@ print(ds.set_index('time',inplace=True))
 print(ds.index.strftime('%a'))
 # >>> output : ['Mon' 'Mon' 'Tue' 'Wed' 'Wed' 'Thu' 'Thu' 'Sat' 'Mon' 'Mon']
 
-#### Terminal Issue ###
+# Transform method with z-normalization
+
+def zscore(series):
+    return (series - series.mean()) / series.mean()
+
+
+# Transform the Bread data to z-score values
+zscore(sales['bread']).head()
