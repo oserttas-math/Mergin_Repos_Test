@@ -41,3 +41,60 @@ print(joind)
 print(joind.groupby('Gender').apply(agg))
 
 #######################################################
+# Groupby : Split-Apply-Combine
+# df.groupby('split').apply()
+# You could choose columns of interest by edding ['colunm_name'] after groupby
+# method
+
+# Groupby Example
+import pandas as pd
+sales = pd.DataFrame(
+                     {
+                       'weekday': ['Sun', 'Sun', 'Mon', 'Mon'],
+                       'city': ['Austin', 'Dallas', 'Austin', 'Dallas'],
+                       'bread': [139, 237, 326, 456],
+                       'butter': [20, 45, 70, 98]
+                     }
+                    )
+
+# Problem : Find number of sales on Sunday
+
+print(sales.loc[sales['weekday'] == 'Sun'].count())
+
+# Alternative way: sales on each day
+print(sales.groupby('weekday').count())
+
+# Total bread sales each day
+print(sales.groupby('weekday')['bread'].sum())
+
+print(sales.groupby('weekday')[['bread', 'butter']].sum())
+
+# Multi-Level splitting
+print(sales.groupby(['city', 'weekday']).mean())
+
+print(sales.groupby(['city', 'weekday']).std())
+
+# Now create a series with the same indexes with sales dataframe then observe
+Customers = pd.Series(['Ali', 'Raji', 'Liz', 'Robert'])
+print(sales)
+print(sales.groupby(Customers)['bread'].sum())
+
+# Result: New series with the customer names on the index
+
+# Now aggregations
+print(sales.groupby('city')[['bread', 'butter']].max())
+# Multiple aggregations
+print(sales.groupby('city')[['bread', 'butter']].agg(['max', 'sum']))
+
+def drange(series):
+    return series.max() - series.min()
+
+# Aggregation with custom functions
+print(sales.groupby('weekday')[['bread', 'butter']].agg(drange))
+
+# Aggregation with dictionary
+print(sales.groupby('weekday')[['bread', 'butter']]
+      .agg({'bread': 'sum', 'butter': drange}))
+
+print(sales.groupby(Customers)[['bread', 'butter']]
+      .agg({'bread': 'sum', 'butter': drange}))
